@@ -25,23 +25,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        cancion = MediaPlayer.create(getBaseContext(), R.raw.cancion);
-        cancion.start();
-
         bandera = false;
         txtMensaje = (TextView) findViewById(R.id.txtMensaje);
 
         try {
             GPS = (LocationManager) getSystemService(LOCATION_SERVICE);
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+            if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) !=
+                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            ) {
                 return;
             }
             GPS.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 3, this);
@@ -69,15 +62,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onLocationChanged(Location location) {
-        Location casa = new Location("Casa");
-        casa.setLatitude(19.47435);
-        casa.setLongitude(-99.04606166666666);
-        double distancia = casa.distanceTo(location);
+        Location escuela = new Location("Escuela");
+        escuela.setLatitude(19.474913);
+        escuela.setLongitude(-99.046150);
+        double distancia = escuela.distanceTo(location);
 
         if (distancia > 10.0 && bandera == false){
             txtMensaje.setText("Zorro no te la lleves");
             bandera = true;
-            // aviso.sendTextMessage("5523833715",null,"Marco: Se escapa la huerca!!!... Digo zorro no te la lleves",null,null);
+            aviso.sendTextMessage("5536492686",null,"Se escapa la huerca!!!... Digo zorro no te la lleves",null,null);
         }else{
             bandera = false;
             txtMensaje.setText("");
